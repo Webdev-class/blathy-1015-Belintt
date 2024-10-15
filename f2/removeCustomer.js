@@ -12,6 +12,10 @@ let customers = [
 ]
 
 function removeCustomer(id) {
-    //TODO
+    const initialLength = customers.length; 
+
+    customers = customers.filter(customer => customer.id !== id);
+
+    return customers.length < initialLength; // Returns true if a customer was removed
 }
 module.exports = removeCustomer;
