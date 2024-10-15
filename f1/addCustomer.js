@@ -25,18 +25,22 @@ function isCustomer(name, age, address, newsLetter) {
 }
 
 function addCustomer(name, age, address, newsLetter) {
-    if (isCustomer(name, age, address, newsLetter)) {
-        const newCustomer = {
-            id: customers.length + 1,
-            name,
-            age,
-            address,
-            newsLetter
-        };
-        customers.push(newCustomer);
-        return newCustomer;
-    } else {
-        throw new Error("Invalid customer data.");
+    if (!isCustomer(name, age, address, newsLetter)) {
+        throw new Error('Invalid customer details');
     }
+
+    
+    const newId = customers.length ? Math.max(...customers.map(c => c.id)) + 1 : 1;
+    const newCustomer = {
+        id: newId,
+        name,
+        age,
+        address,
+        newsLetter
+    };
+
+    customers.push(newCustomer);  
+    return customers;  
 }
+
 module.exports = addCustomer;

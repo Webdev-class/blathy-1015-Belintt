@@ -12,10 +12,11 @@ let customers = [
 ]
 
 function removeCustomer(id) {
-    const initialLength = customers.length; 
-
-    customers = customers.filter(customer => customer.id !== id);
-
-    return customers.length < initialLength; // Returns true if a customer was removed
+    const index = customers.findIndex(c => c.id === id);
+    if (index !== -1) {
+        customers.splice(index, 1);  // Remove the customer
+    }
+    return customers;  // Return the updated customers array
 }
+
 module.exports = removeCustomer;

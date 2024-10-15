@@ -17,19 +17,23 @@ function isAddress(address) {
 function isCustomer(name, age, address, newsLetter) {    
     return typeof name === 'string' && typeof age === 'number' && isAddress(address) && typeof newsLetter === 'boolean';
 }
-function modifyCustomer (customer){
-     // Validate the customer object
-     if (isCustomer(customer.name, customer.age, customer.address, customer.newsLetter)) {
-        const index = customers.findIndex(c => c.id === customer.id);
-        
-        // If the customer exists, update their data
-        if (index !== -1) {
-            customers[index] = customer; 
-            return customers[index]; 
-        } else {
-            throw new Error("Customer not found.");
-        }
-    } 
+function modifyCustomer(id, name, age, address, newsLetter) {
+    if (!isCustomer(name, age, address, newsLetter)) {
+        throw new Error('Invalid customer details');
+    }
+
+    const index = customers.findIndex(c => c.id === id);
+    if (index !== -1) {
+        customers[index] = {
+            id,  // Keep the same ID
+            name,
+            age,
+            address,
+            newsLetter
+        };
+    }
+    return customers;  // Return the updated customers array
 }
+
 
 module.exports = modifyCustomer;
